@@ -44,7 +44,7 @@ def qr_decomposition(matrix: dist.RowMatrix) -> linalg.Matrix:
     return decomposition.R
 
 
-def print_time_for_function(function: callable, time, repeats):
+def print_time_for_function(function: callable, time: float, repeats: int) -> None:
     print(f"Running {function.__name__} {repeats} times took {time} seconds, "
           f"for an average of {time / repeats} seconds")
 
