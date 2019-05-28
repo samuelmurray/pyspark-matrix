@@ -37,15 +37,15 @@ def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix,
     return end - start
 
 
-def compute_singular_value_decomposition(row_matrix: dist.RowMatrix
+def compute_singular_value_decomposition(matrix: dist.RowMatrix
                                          ) -> Tuple[linalg.Vector, linalg.Matrix]:
-    num_singular_values = row_matrix.numCols()
-    svd = row_matrix.computeSVD(num_singular_values, computeU=False)
+    num_singular_values = matrix.numCols()
+    svd = matrix.computeSVD(num_singular_values, computeU=False)
     return svd.s, svd.V
 
 
-def compute_qr_decomposition(row_matrix: dist.RowMatrix):
-    decomp = row_matrix.tallSkinnyQR()
+def compute_qr_decomposition(matrix: dist.RowMatrix):
+    decomp = matrix.tallSkinnyQR()
     return decomp.R
 
 
