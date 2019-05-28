@@ -3,6 +3,7 @@ from timeit import default_timer as timer
 from typing import Any, Callable, Tuple
 
 from IPython import embed
+from pyspark import SparkContext
 from pyspark.sql import SparkSession
 from pyspark.mllib import linalg
 from pyspark.mllib.linalg import distributed as dist
@@ -41,8 +42,7 @@ def compute_svd(row_matrix: dist.RowMatrix) -> Tuple[linalg.Vector, linalg.Matri
 
 
 def convert_csc_to_spark_matrix(csc_matrix: csc.csc_matrix) -> dist.RowMatrix:
-    spark_session = get_spark_session()
-    spark_context = spark_session.sparkContext
+    spark_context = get_spark_context()
     matrix_as_array = csc_matrix.toarray()
     matrix_rdd = spark_context.parallelize(matrix_as_array)
     return dist.RowMatrix(matrix_rdd)
@@ -50,6 +50,11 @@ def convert_csc_to_spark_matrix(csc_matrix: csc.csc_matrix) -> dist.RowMatrix:
 
 def get_spark_session() -> SparkSession:
     return SparkSession.builder.getOrCreate()
+
+
+def get_spark_context() -> SparkContext:
+    session = get_spark_session()
+    return session.sparkContext
 
 
 if __name__ == '__main__':
