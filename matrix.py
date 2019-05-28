@@ -11,8 +11,10 @@ from pyspark.sql import SparkSession
 def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
     with get_spark_session():
         row_matrix = create_spark_matrix(np_matrix)
-        time_for_svd = time_call(compute_svd, row_matrix)
-        print(f"SVD took {time_for_svd} seconds")
+        repeats = 100
+        time_for_svd = time_call(compute_svd, row_matrix, repeats)
+        print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
+              f"for an average of {time_for_svd/repeats} seconds")
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
@@ -21,9 +23,11 @@ def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
     return dist.RowMatrix(matrix_rdd)
 
 
-def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix) -> float:
+def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix,
+              repeats: int) -> float:
     start = timer()
-    _ = function(matrix)
+    for i in range(repeats):
+        _ = function(matrix)
     end = timer()
     return end - start
 
