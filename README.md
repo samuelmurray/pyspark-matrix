@@ -3,7 +3,7 @@ Evaluation of matrix operations using PySpark with Google Cloud Dataproc
 
 
 ## Example
-You can run on a small matrix (85x85) with the following:
+You can run on a small matrix (85x85) locally with the following.
 
 ```
 $ python3 main.py python3 HB ash85 1
