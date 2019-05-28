@@ -1,3 +1,4 @@
+import sys
 from timeit import default_timer as timer
 from typing import Tuple
 
@@ -11,15 +12,20 @@ import data
 
 
 def run():
-    matrix_group = "HB"
-    matrix_name = "ash85"
-    index = 1
-    csc_matrix = data.get_matrix(matrix_group, matrix_name, index)
+    group, name, index = parse_argv()
+    csc_matrix = data.get_matrix(group, name, index)
     spark = SparkSession.builder.getOrCreate()
     row_matrix = convert_csc_to_spark_matrix(spark, csc_matrix)
     time_for_svd = time_call(compute_svd, row_matrix)
     print(f"SVD took {time_for_svd} seconds")
     spark.stop()
+
+
+def parse_argv():
+    group = sys.argv[1]
+    name = sys.argv[2]
+    index = int(sys.argv[3])
+    return group, name, index
 
 
 def time_call(function: callable, matrix: dist.RowMatrix) -> float:
