@@ -43,7 +43,7 @@ def singular_value_decomposition(matrix: dist.RowMatrix) -> Tuple[linalg.Vector,
     return decomposition.s, decomposition.V
 
 
-def qr_decomposition(matrix: dist.RowMatrix):
+def qr_decomposition(matrix: dist.RowMatrix) -> linalg.Matrix:
     decomposition = matrix.tallSkinnyQR()
     return decomposition.R
 
