@@ -17,9 +17,9 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
         print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
               f"for an average of {time_for_svd / repeats} seconds")
 
-        time_for_svd = time_call(qr_decomposition, row_matrix, repeats)
-        print(f"Running QR decomposition {repeats} times took {time_for_svd} seconds, "
-              f"for an average of {time_for_svd / repeats} seconds")
+        time_for_qr = time_call(qr_decomposition, row_matrix, repeats)
+        print(f"Running QR decomposition {repeats} times took {time_for_qr} seconds, "
+              f"for an average of {time_for_qr / repeats} seconds")
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
