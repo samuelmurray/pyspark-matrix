@@ -12,9 +12,14 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
     with get_spark_session():
         row_matrix = create_spark_matrix(np_matrix)
         repeats = 100
+
         time_for_svd = time_call(compute_svd, row_matrix, repeats)
         print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
               f"for an average of {time_for_svd/repeats} seconds")
+
+        time_for_svd = time_call(compute_qr_decomposition, row_matrix, repeats)
+        print(f"Running QR decomposition {repeats} times took {time_for_svd} seconds, "
+              f"for an average of {time_for_svd / repeats} seconds")
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
@@ -36,6 +41,11 @@ def compute_svd(row_matrix: dist.RowMatrix) -> Tuple[linalg.Vector, linalg.Matri
     num_singular_values = row_matrix.numCols()
     svd = row_matrix.computeSVD(num_singular_values, computeU=False)
     return svd.s, svd.V
+
+
+def compute_qr_decomposition(row_matrix: dist.RowMatrix):
+    decomp = row_matrix.tallSkinnyQR()
+    return decomp.R
 
 
 def get_spark_session() -> SparkSession:
