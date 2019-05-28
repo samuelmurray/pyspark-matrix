@@ -14,8 +14,8 @@ def run():
     matrix_group = "HB"
     matrix_name = "ash85"
     index = 1
-    mat = data.get_mat(matrix_group, matrix_name)
-    csc_matrix = get_matrix_from_mat(mat, index)
+    mat_dict = data.get_mat(matrix_group, matrix_name)
+    csc_matrix = get_matrix_from_dict(mat_dict, index)
     spark = SparkSession.builder.getOrCreate()
     row_matrix = convert_csc_to_spark_matrix(spark, csc_matrix)
     time_for_svd = time_call(compute_svd, row_matrix)
@@ -23,8 +23,8 @@ def run():
     spark.stop()
 
 
-def get_matrix_from_mat(mat_contents, index):
-    array = mat_contents["Problem"][0, 0]
+def get_matrix_from_dict(mat_dict, index):
+    array = mat_dict["Problem"][0, 0]
     csc_matrix = array[index]
     return csc_matrix
 
