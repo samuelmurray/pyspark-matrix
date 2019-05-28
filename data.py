@@ -6,6 +6,7 @@ from scipy.sparse import csc
 
 BASE_URL = "https://sparse.tamu.edu/mat"
 ENCODING = "mat"
+MAT_DICT_KEY = "Problem"
 
 
 def get_matrix(group: str, name: str, index: int) -> csc.csc_matrix:
@@ -20,7 +21,7 @@ def _get_matrix(name: str, index: int) -> csc.csc_matrix:
 
 
 def _get_matrix_from_mat(mat_dict: dict, index: int):
-    array = mat_dict["Problem"][0, 0]
+    array = mat_dict[MAT_DICT_KEY][0, 0]
     return array[index]
 
 
