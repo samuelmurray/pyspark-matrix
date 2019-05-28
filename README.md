@@ -21,3 +21,16 @@ $ gcloud dataproc clusters create conda-cluster \
 --project=${PROJECT_ID} \
 --worker-machine-type='n1-standard-2' 
 ```
+
+
+## Submit job
+To submit this as a job to dataproc, run the following.
+
+```
+$ export PROJECT_ID="[your_project_id]"
+$ gcloud dataproc jobs submit pyspark gs://${PROJECT_ID}/main.py \
+--py-files "gs://${PROJECT_ID}/matrix.py,gs://${PROJECT_ID}/data.py" \
+--cluster=conda-cluster \
+--properties "spark.pyspark.python=python3.6,spark.pyspark.driver.python=python3.6" \
+-- /opt/conda/bin/python3.6 HB ash85 1
+```
