@@ -13,9 +13,9 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
         row_matrix = create_spark_matrix(np_matrix)
         repeats = 10
         functions = [singular_value_decomposition, qr_decomposition]
-        for f in functions:
-            time = time_function_call(f, row_matrix, repeats)
-            print_time_for_function(f, time, repeats)
+        for function in functions:
+            time = time_function_call(function, row_matrix, repeats)
+            print_time_for_function(function, time, repeats)
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
