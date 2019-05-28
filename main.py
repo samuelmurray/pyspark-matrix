@@ -1,8 +1,6 @@
 import sys
 from typing import Tuple
 
-from IPython import embed
-
 import data
 import matrix
 
