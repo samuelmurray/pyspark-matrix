@@ -1,6 +1,6 @@
 import sys
 from timeit import default_timer as timer
-from typing import Tuple
+from typing import Any, Callable, Tuple
 
 from IPython import embed
 from pyspark.sql import SparkSession
@@ -28,7 +28,7 @@ def parse_argv() -> Tuple[str, str, int]:
     return group, name, index
 
 
-def time_call(function: callable, matrix: dist.RowMatrix) -> float:
+def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix) -> float:
     start = timer()
     _ = function(matrix)
     end = timer()
