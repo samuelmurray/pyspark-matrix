@@ -1,3 +1,4 @@
+import os
 import sys
 from typing import Tuple
 
@@ -12,9 +13,10 @@ def run():
 
 
 def parse_argv() -> Tuple[str, str, int]:
-    group = sys.argv[1]
-    name = sys.argv[2]
-    index = int(sys.argv[3])
+    os.environ["PYSPARK_PYTHON"] = sys.argv[1]
+    group = sys.argv[2]
+    name = sys.argv[3]
+    index = int(sys.argv[4])
     return group, name, index
 
 
