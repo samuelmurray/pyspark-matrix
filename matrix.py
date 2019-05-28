@@ -11,15 +11,13 @@ from pyspark.sql import SparkSession
 def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
     with get_spark_session():
         row_matrix = create_spark_matrix(np_matrix)
-        repeats = 100
+        repeats = 10
 
         time_for_svd = time_call(singular_value_decomposition, row_matrix, repeats)
-        print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
-              f"for an average of {time_for_svd / repeats} seconds")
+        print_time_for_function(singular_value_decomposition, time_for_svd, repeats)
 
         time_for_qr = time_call(qr_decomposition, row_matrix, repeats)
-        print(f"Running QR decomposition {repeats} times took {time_for_qr} seconds, "
-              f"for an average of {time_for_qr / repeats} seconds")
+        print_time_for_function(qr_decomposition, time_for_qr, repeats)
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
@@ -46,6 +44,11 @@ def singular_value_decomposition(matrix: dist.RowMatrix) -> Tuple[linalg.Vector,
 def qr_decomposition(matrix: dist.RowMatrix) -> linalg.Matrix:
     decomposition = matrix.tallSkinnyQR()
     return decomposition.R
+
+
+def print_time_for_function(function: callable, time, repeats):
+    print(f"Running {function.__name__} {repeats} times took {time} seconds, "
+          f"for an average of {time / repeats} seconds")
 
 
 def get_spark_session() -> SparkSession:
