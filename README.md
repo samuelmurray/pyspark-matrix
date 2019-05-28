@@ -6,7 +6,7 @@ Evaluation of matrix operations using PySpark with Google Cloud Dataproc
 You can run on a small matrix (85x85) with the following:
 
 ```
-$ python3 main.py /usr/local/bin/python3 HB ash85 1
+$ python3 main.py python3 HB ash85 1
 ```
 
 
