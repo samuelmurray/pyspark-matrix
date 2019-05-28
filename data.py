@@ -11,18 +11,17 @@ ENCODING = "mat"
 def get_matrix(group: str, name: str, index: int) -> csc.csc_matrix:
     if not os.path.isfile(name):
         download_mat(group, name)
-    mat_dict = get_mat(name)
-    return get_matrix_from_dict(mat_dict, index)
+    return _get_matrix(name, index)
 
 
-def get_matrix_from_dict(mat_dict, index) -> csc.csc_matrix:
+def _get_matrix(name: str, index: int) -> csc.csc_matrix:
+    mat_dict = loadmat(f"{name}.{ENCODING}")
+    return _get_matrix_from_mat(mat_dict, index)
+
+
+def _get_matrix_from_mat(mat_dict: dict, index: int):
     array = mat_dict["Problem"][0, 0]
-    csc_matrix = array[index]
-    return csc_matrix
-
-
-def get_mat(name: str) -> dict:
-    return loadmat(f"{name}.{ENCODING}")
+    return array[index]
 
 
 def download_mat(group: str, name: str) -> None:
