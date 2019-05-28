@@ -45,8 +45,8 @@ def compute_singular_value_decomposition(matrix: dist.RowMatrix
 
 
 def compute_qr_decomposition(matrix: dist.RowMatrix):
-    decomp = matrix.tallSkinnyQR()
-    return decomp.R
+    decomposition = matrix.tallSkinnyQR()
+    return decomposition.R
 
 
 def get_spark_session() -> SparkSession:
