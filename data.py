@@ -11,7 +11,7 @@ MAT_DICT_KEY = "Problem"
 
 def get_matrix(group: str, name: str, index: int) -> np.ndarray:
     if not os.path.isfile(name):
-        download_mat(group, name)
+        _download_mat(group, name)
     return _get_matrix(name, index)
 
 
@@ -26,6 +26,6 @@ def _get_matrix_from_mat(mat_dict: dict, index: int) -> np.ndarray:
     return csc_matrix.toarray()
 
 
-def download_mat(group: str, name: str) -> None:
+def _download_mat(group: str, name: str) -> None:
     url = f"{BASE_URL}/{group}/{name}.{ENCODING}"
     urllib.request.urlretrieve(url, f"{name}.{ENCODING}")
