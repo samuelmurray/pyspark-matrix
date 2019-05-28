@@ -12,12 +12,10 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
     with get_spark_session():
         row_matrix = create_spark_matrix(np_matrix)
         repeats = 10
-
-        time_for_svd = time_function_call(singular_value_decomposition, row_matrix, repeats)
-        print_time_for_function(singular_value_decomposition, time_for_svd, repeats)
-
-        time_for_qr = time_function_call(qr_decomposition, row_matrix, repeats)
-        print_time_for_function(qr_decomposition, time_for_qr, repeats)
+        functions = [singular_value_decomposition, qr_decomposition]
+        for f in functions:
+            time = time_function_call(f, row_matrix, repeats)
+            print_time_for_function(f, time, repeats)
 
 
 def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
