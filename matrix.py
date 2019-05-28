@@ -13,7 +13,7 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
         row_matrix = create_spark_matrix(np_matrix)
         repeats = 100
 
-        time_for_svd = time_call(compute_singular_value_decomposition, row_matrix, repeats)
+        time_for_svd = time_call(singular_value_decomposition, row_matrix, repeats)
         print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
               f"for an average of {time_for_svd / repeats} seconds")
 
@@ -37,8 +37,7 @@ def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix,
     return end - start
 
 
-def compute_singular_value_decomposition(matrix: dist.RowMatrix
-                                         ) -> Tuple[linalg.Vector, linalg.Matrix]:
+def singular_value_decomposition(matrix: dist.RowMatrix) -> Tuple[linalg.Vector, linalg.Matrix]:
     num_singular_values = matrix.numCols()
     decomposition = matrix.computeSVD(num_singular_values, computeU=False)
     return decomposition.s, decomposition.V
