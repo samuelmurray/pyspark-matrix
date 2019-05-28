@@ -21,7 +21,7 @@ def run():
     spark.stop()
 
 
-def parse_argv():
+def parse_argv() -> Tuple[str, str, int]:
     group = sys.argv[1]
     name = sys.argv[2]
     index = int(sys.argv[3])
