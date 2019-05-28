@@ -17,7 +17,7 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
         print(f"Running SVD {repeats} times took {time_for_svd} seconds, "
               f"for an average of {time_for_svd / repeats} seconds")
 
-        time_for_svd = time_call(compute_qr_decomposition, row_matrix, repeats)
+        time_for_svd = time_call(qr_decomposition, row_matrix, repeats)
         print(f"Running QR decomposition {repeats} times took {time_for_svd} seconds, "
               f"for an average of {time_for_svd / repeats} seconds")
 
@@ -43,7 +43,7 @@ def singular_value_decomposition(matrix: dist.RowMatrix) -> Tuple[linalg.Vector,
     return decomposition.s, decomposition.V
 
 
-def compute_qr_decomposition(matrix: dist.RowMatrix):
+def qr_decomposition(matrix: dist.RowMatrix):
     decomposition = matrix.tallSkinnyQR()
     return decomposition.R
 
