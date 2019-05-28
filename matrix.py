@@ -13,10 +13,10 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
         row_matrix = create_spark_matrix(np_matrix)
         repeats = 10
 
-        time_for_svd = time_call(singular_value_decomposition, row_matrix, repeats)
+        time_for_svd = time_function_call(singular_value_decomposition, row_matrix, repeats)
         print_time_for_function(singular_value_decomposition, time_for_svd, repeats)
 
-        time_for_qr = time_call(qr_decomposition, row_matrix, repeats)
+        time_for_qr = time_function_call(qr_decomposition, row_matrix, repeats)
         print_time_for_function(qr_decomposition, time_for_qr, repeats)
 
 
@@ -26,8 +26,8 @@ def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
     return dist.RowMatrix(matrix_rdd)
 
 
-def time_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix,
-              repeats: int) -> float:
+def time_function_call(function: Callable[[dist.RowMatrix], Any], matrix: dist.RowMatrix,
+                       repeats: int) -> float:
     start = timer()
     for i in range(repeats):
         _ = function(matrix)
