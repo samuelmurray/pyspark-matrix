@@ -14,12 +14,7 @@ $ python3 main.py python3 HB ash85 1
 You need python3.6 on the cluster to run this. To create a cluster with python3.6 installed, run the following.
 
 ```
-$ project=[your_project_id]
-$ gcloud dataproc clusters create conda-cluster \
---metadata 'CONDA_PACKAGES="numpy scipy"' \
---initialization-actions gs://dataproc-initialization-actions/conda/bootstrap-conda.sh,gs://dataproc-initialization-actions/conda/install-conda-env.sh \
---project=${project} \
---worker-machine-type='n1-standard-2' 
+$ make install project=[your_project_id]
 ```
 
 ### Test your cluster
