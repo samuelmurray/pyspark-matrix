@@ -14,7 +14,7 @@ $ python3 main.py python3 HB ash85 1
 You need python3.6 on the cluster to run this. To create a cluster with python3.6 installed, run the following.
 
 ```
-$ make install project=[your_project_id]
+$ make install project=[project_id]
 ```
 
 ### Test your cluster
@@ -28,7 +28,7 @@ $ make test
 To submit this as a job to dataproc, run the following.
 
 ```
-$ project="[your_project_id]"
+$ project="[project_id]"
 $ gcloud dataproc jobs submit pyspark gs://${project}/main.py \
 --py-files "gs://${project}/matrix.py,gs://${project}/data.py" \
 --cluster=conda-cluster \
@@ -40,5 +40,5 @@ $ gcloud dataproc jobs submit pyspark gs://${project}/main.py \
 You can also use the provided Makefile to submit jobs. The equivalent call as above would be
 
 ```
-$ make submit project=[your_project_id] group=HB name=ash85 index=1
+$ make submit project=[project_id] group=HB name=ash85 index=1
 ```
