@@ -14,11 +14,11 @@ $ python3 main.py python3 HB ash85 1
 You need python3.6 on the cluster to run this. To create a cluster with python3.6 installed, run the following.
 
 ```
-$ export PROJECT_ID=[your_project_id]
+$ project=[your_project_id]
 $ gcloud dataproc clusters create conda-cluster \
 --metadata 'CONDA_PACKAGES="numpy scipy"' \
 --initialization-actions gs://dataproc-initialization-actions/conda/bootstrap-conda.sh,gs://dataproc-initialization-actions/conda/install-conda-env.sh \
---project=${PROJECT_ID} \
+--project=${project} \
 --worker-machine-type='n1-standard-2' 
 ```
 
@@ -35,9 +35,9 @@ $ gcloud dataproc jobs submit pyspark check_python_env.py \
 To submit this as a job to dataproc, run the following.
 
 ```
-$ export PROJECT_ID="[your_project_id]"
-$ gcloud dataproc jobs submit pyspark gs://${PROJECT_ID}/main.py \
---py-files "gs://${PROJECT_ID}/matrix.py,gs://${PROJECT_ID}/data.py" \
+$ project="[your_project_id]"
+$ gcloud dataproc jobs submit pyspark gs://${project}/main.py \
+--py-files "gs://${project}/matrix.py,gs://${project}/data.py" \
 --cluster=conda-cluster \
 --properties "spark.pyspark.python=python3.6,spark.pyspark.driver.python=python3.6" \
 -- /opt/conda/bin/python3.6 HB ash85 1
@@ -47,5 +47,5 @@ $ gcloud dataproc jobs submit pyspark gs://${PROJECT_ID}/main.py \
 You can also use the provided Makefile to submit jobs. The equivalent call as above would be
 
 ```
-$ make submit PROJECT_ID=[your_project_id] group=HB name=ash85 index=1
+$ make submit project=[your_project_id] group=HB name=ash85 index=1
 ```
