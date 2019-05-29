@@ -26,9 +26,7 @@ $ gcloud dataproc clusters create conda-cluster \
 To test that your cluster has python3.6 installed correctly, you can run the following.
 
 ```
-$ gcloud dataproc jobs submit pyspark check_python_env.py \
---cluster=conda-cluster \
---properties "spark.pyspark.python=python3.6,spark.pyspark.driver.python=python3.6"
+$ make test
 ```
 
 ## Submit job
