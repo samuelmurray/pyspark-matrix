@@ -42,3 +42,10 @@ $ gcloud dataproc jobs submit pyspark gs://${PROJECT_ID}/main.py \
 --properties "spark.pyspark.python=python3.6,spark.pyspark.driver.python=python3.6" \
 -- /opt/conda/bin/python3.6 HB ash85 1
 ```
+
+### Makefile
+You can also use the provided Makefile to submit jobs. The equivalent call as above would be
+
+```
+$ make submit PROJECT_ID=[your_project_id] group=HB name=ash85 index=1
+```
