@@ -1,7 +1,10 @@
 .PHONY: default install submit test clean
 
 default:
-	@ echo Run \"make clean\" to remove all downloaded files
+	@ echo -e "Run  \"make install project=[project_id]\" to setup a cluster \n\
+		\"make test\" to test the cluster \n\
+		\"make submit project=[project_id] group=[matrix_group] name=[name] index=[index]\" to submit a job \n\
+		\"make clean\" to remove all downloaded files"
 
 submit:
 	gcloud dataproc jobs submit pyspark gs://${project}/main.py \
