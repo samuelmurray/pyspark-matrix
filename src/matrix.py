@@ -9,8 +9,8 @@ from pyspark.sql import SparkSession
 
 
 def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
-    with get_spark_session():
-        row_matrix = create_spark_matrix(np_matrix)
+    with get_spark_session() as session:
+        row_matrix = create_spark_matrix(np_matrix, session)
         repeats = 10
         functions = [singular_value_decomposition, qr_decomposition]
         for function in functions:
@@ -18,8 +18,8 @@ def run_operations_on_matrix(np_matrix: np.ndarray) -> None:
             print_time_for_function(function, time, repeats)
 
 
-def create_spark_matrix(np_matrix: np.ndarray) -> dist.RowMatrix:
-    spark_context = get_spark_context()
+def create_spark_matrix(np_matrix: np.ndarray, session: SparkSession) -> dist.RowMatrix:
+    spark_context = get_spark_context(session)
     matrix_rdd = spark_context.parallelize(np_matrix)
     return dist.RowMatrix(matrix_rdd)
 
@@ -53,6 +53,5 @@ def get_spark_session() -> SparkSession:
     return SparkSession.builder.getOrCreate()
 
 
-def get_spark_context() -> SparkContext:
-    session = get_spark_session()
+def get_spark_context(session: SparkSession) -> SparkContext:
     return session.sparkContext
